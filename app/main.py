@@ -16,6 +16,16 @@ def get_bucket():
 async def root():
     return {"message" : "Welcome to QuranAPI"}
 
+@app.get("/surah/all", tags=["Quran"], status_code=200)
+async def retrieve_all_surah():
+    db = get_bucket()
+    json = []
+    all_surah = db.summary.find({})
+    for surah in all_surah:
+           json.append({'surah_number' : surah['number'], 'surah_name' : surah['translation']})
+    return json
+   
+
 @app.get("/surah/", tags=["Quran"], status_code=200)
 async def retrieve_surah(id : int):
     db = get_bucket()
