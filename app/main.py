@@ -1,8 +1,22 @@
 from fastapi import FastAPI, Response, status
 from pymongo import MongoClient
+from fastapi.middleware.cors import CORSMiddleware
 import os
 
 app = FastAPI()
+
+origins = [
+    "http://192.168.1.245",
+    "http://192.168.1.245:8080",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 def get_bucket():
     USER = os.getenv('MONGO_USER')
