@@ -1,0 +1,4 @@
+sudo docker build -t quran_api .
+
+
+docker run -d --name QuranAPI --restart always --env MONGO_USER=rootuser --env MONGO_PASSWORD=rootpass -p 80:80 quran_api
